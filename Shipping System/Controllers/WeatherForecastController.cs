@@ -1,5 +1,8 @@
+using Application.Interface;
+using Core.Dtos;
 using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Nelibur.ObjectMapper;
 
 namespace Shipping_System.Controllers
 {
@@ -7,6 +10,7 @@ namespace Shipping_System.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly IEmployeeService _employeeService;
        
         private static readonly string[] Summaries = new[]
         {
@@ -16,9 +20,10 @@ namespace Shipping_System.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger , IEmployeeService employeeService)
         {
             _logger = logger;
+            _employeeService = employeeService;
         }
 
         [HttpGet("GetWeatherForecast")]
@@ -34,17 +39,21 @@ namespace Shipping_System.Controllers
         }
 
         [HttpGet("GetEmployees")]
-        public IEnumerable<Employee> GetEmployees()
+        public List<EmployeeDto> GetEmployees()
         {
-            List<Employee> result = new List<Employee>()
-           {
-                new Employee() { Id = 6, Name = "ahmed", Email = "ahmed@gmail.com" },
-                new Employee() { Id = 7, Name = "ebrahim", Email = "ahmed@gmail.com" },
-                new Employee() { Id = 8, Name = "mohamed", Email = "ahmed@gmail.com" },
-                new Employee() { Id = 9, Name = "eslam", Email = "ahmed@gmail.com" }
-           };
+            var employeesList = _employeeService.GetEmployees();
+            TinyMapper.Bind<List<Employee>, List<EmployeeDto>>();
+            var list= TinyMapper.Map<List<EmployeeDto>>(employeesList);
+           // List<Employee> result = new List<Employee>()
+           //{
+           //     new Employee() { Id = 6, Name = "ahmed", Email = "ahmed@gmail.com" },
+           //     new Employee() { Id = 7, Name = "ebrahim", Email = "ahmed@gmail.com" },
+           //     new Employee() { Id = 8, Name = "mohamed", Email = "ahmed@gmail.com" },
+           //     new Employee() { Id = 9, Name = "eslam", Email = "ahmed@gmail.com" }
+           //};
+            return list;
 
-            return result.OrderBy(c => c.Id);
+            //return result.OrderBy(c => c.Id);
         }
     }
 }

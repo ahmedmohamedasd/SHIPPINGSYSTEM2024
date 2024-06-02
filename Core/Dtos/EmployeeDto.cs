@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interface
+namespace Core.Dtos
 {
-    public interface IEmployee
+    public class EmployeeDto
     {
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }
