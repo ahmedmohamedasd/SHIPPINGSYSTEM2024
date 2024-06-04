@@ -2,6 +2,7 @@ using Application;
 using Application.Setting;
 using Serilog;
 using Infrastructure;
+using Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+await app.SeedDatabaseAsync();
 
 app.UseHttpsRedirection();
 

@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Core.Entities;
 using Infrastructure.Persistence.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace Infrastructure.Persistence
     public class AppDbContext :IdentityDbContext<AppUser ,Role ,string> ,IAppDbContext
     {
         public DbSet<AppUser> AppUser { get; set; }
+        public DbSet<Employee>  Employees { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }

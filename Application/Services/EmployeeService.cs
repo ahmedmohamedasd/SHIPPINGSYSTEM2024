@@ -10,17 +10,15 @@ namespace Application.Services
 {
     public class EmployeeService :IEmployeeService
     {
+        private readonly IAppDbContext _appDbContext;
+        public EmployeeService(IAppDbContext appDbContext)
+        {
+            _appDbContext = appDbContext;
+        }
         public List<Employee> GetEmployees()
         {
-            List<Employee> list = new List<Employee>()
-            {
-                new Employee() { Id = 1, Email = "ahmed@gmail.com", Name = "ahmed Test" },
-                new Employee() { Id = 2, Email = "ahmed@gmail.com", Name = "ahmed Test" },
-                new Employee() { Id = 3, Email = "ahmed@gmail.com", Name = "ahmed Test" },
-                new Employee() { Id = 4, Email = "ahmed@gmail.com", Name = "ahmed Test" },
-                new Employee() { Id = 5, Email = "ahmed@gmail.com", Name = "ahmed Test" },
-            };
-            return list;
+            var employees = _appDbContext.Employees.ToList();
+            return employees;
         }
     }
 }

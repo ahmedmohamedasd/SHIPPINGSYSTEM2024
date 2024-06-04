@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Interface;
+using Core.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Shipping_System.Controllers
@@ -7,10 +9,16 @@ namespace Shipping_System.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        [HttpGet]
-        public string GetEmployees()
+        private readonly IEmployeeService _employeeService;
+        public EmployeeController(IEmployeeService employeeService)
         {
-            return "ahmed";
+            _employeeService = employeeService;
+        }
+        [HttpGet]
+        public IEnumerable<Employee> GetEmployees()
+        {
+            var employees = _employeeService.GetEmployees();
+            return employees;
         }
     }
 }
