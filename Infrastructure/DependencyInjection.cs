@@ -41,6 +41,8 @@ namespace Infrastructure
                 });
             services.AddScoped<IAppDbContext, AppDbContext>();
             services.AddScoped<IRoleManagerService, RoleManagerService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IUserManagerService, UserManagerService>();
             services.InjectIdentity(configuration);
 
             services.AddCors(options =>

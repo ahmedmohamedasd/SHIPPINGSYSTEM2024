@@ -44,13 +44,7 @@ namespace Shipping_System.Controllers
             var employeesList = _employeeService.GetEmployees();
             TinyMapper.Bind<List<Employee>, List<EmployeeDto>>();
             var list= TinyMapper.Map<List<EmployeeDto>>(employeesList);
-           // List<Employee> result = new List<Employee>()
-           //{
-           //     new Employee() { Id = 6, Name = "ahmed", Email = "ahmed@gmail.com" },
-           //     new Employee() { Id = 7, Name = "ebrahim", Email = "ahmed@gmail.com" },
-           //     new Employee() { Id = 8, Name = "mohamed", Email = "ahmed@gmail.com" },
-           //     new Employee() { Id = 9, Name = "eslam", Email = "ahmed@gmail.com" }
-           //};
+          
             return list;
 
             //return result.OrderBy(c => c.Id);

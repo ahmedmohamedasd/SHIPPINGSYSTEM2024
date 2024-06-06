@@ -1,5 +1,8 @@
-﻿using Application.Interface;
+﻿using Application.Constants;
+using Application.Interface;
 using Core.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +18,7 @@ namespace Shipping_System.Controllers
             _employeeService = employeeService;
         }
         [HttpGet]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Policy =SystemConstants.AuthorizationConstants.Claims.Employee.GetEmployees)]
         public IEnumerable<Employee> GetEmployees()
         {
             var employees = _employeeService.GetEmployees();
