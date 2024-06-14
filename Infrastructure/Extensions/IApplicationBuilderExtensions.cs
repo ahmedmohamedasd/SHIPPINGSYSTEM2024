@@ -83,18 +83,23 @@ namespace Infrastructure.Extensions
         {
             try
             {
-                var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
-                var adminUser = await userManager.FindByNameAsync(SystemConstants.Seeds.SeedAdmin.UserName);
-                if (adminUser == null)
+                using (var scop = serviceProvider.CreateScope())
                 {
-                    var defaultAdmin = new AppUser { UserName = SystemConstants.Seeds.SeedAdmin.UserName, Email = SystemConstants.Seeds.SeedAdmin.Email , FullName =SystemConstants.Seeds.SeedAdmin.FullName ,CardNumber = SystemConstants.Seeds.SeedAdmin.CardNumber  };
-                    var result = await userManager.CreateAsync(defaultAdmin, SystemConstants.Seeds.SeedAdmin.Password);
-                    if (!result.Succeeded)
+                 var userManager =scop.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+                    var adminUser = await userManager.FindByNameAsync(SystemConstants.Seeds.SeedAdmin.UserName);
+                    if (adminUser == null)
                     {
-                        var error = string.Join(",", result.Errors.Select(e => e.Description).ToArray());
-                        throw new ApplicationException(error);
+                        var defaultAdmin = new AppUser { UserName = SystemConstants.Seeds.SeedAdmin.UserName, Email = SystemConstants.Seeds.SeedAdmin.Email, FullName = SystemConstants.Seeds.SeedAdmin.FullName, CardNumber = SystemConstants.Seeds.SeedAdmin.CardNumber };
+                        var result = await userManager.CreateAsync(defaultAdmin, SystemConstants.Seeds.SeedAdmin.Password);
+                        if (!result.Succeeded)
+                        {
+                            var error = string.Join(",", result.Errors.Select(e => e.Description).ToArray());
+                            throw new ApplicationException(error);
+                        }
                     }
                 }
+
+               
             }
             catch(Exception ex)
             {
@@ -107,18 +112,22 @@ namespace Infrastructure.Extensions
         {
             try
             {
-                var rolesManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
-
-                var adminRole = await rolesManager.FindByNameAsync(roleName);
-                if (adminRole == null)
+                using (var scop = serviceProvider.CreateScope())
                 {
-                    var result = await rolesManager.CreateAsync(new Role() { Name = roleName });
-                    if (!result.Succeeded)
+                    var rolesManager = scop.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+                    var adminRole = await rolesManager.FindByNameAsync(roleName);
+                    if (adminRole == null)
                     {
-                        var error = string.Join(",", result.Errors.Select(e => e.Description).ToArray());
-                        throw new ApplicationException(error);
+                        var result = await rolesManager.CreateAsync(new Role() { Name = roleName });
+                        if (!result.Succeeded)
+                        {
+                            var error = string.Join(",", result.Errors.Select(e => e.Description).ToArray());
+                            throw new ApplicationException(error);
+                        }
                     }
+
                 }
+               
             }
             catch(Exception ex)
             {
@@ -131,21 +140,20 @@ namespace Infrastructure.Extensions
         {
             try
             {
-                var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
-                //var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
-                var adminUser = await userManager.FindByNameAsync(userName);
-                var rols = await userManager.GetRolesAsync((AppUser) adminUser);
-
-                var userInRol = rols.Where(c=>c == roleName).ToList();
-                if (userInRol.Count == 0)
+                using(var scop = serviceProvider.CreateScope())
                 {
-                    await userManager.AddToRoleAsync(adminUser, roleName);
+                    var userManager = scop.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+                    //var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
+
+                    var adminUser = await userManager.FindByNameAsync(userName);
+                    var rols = await userManager.GetRolesAsync((AppUser)adminUser);
+
+                    var userInRol = rols.Where(c => c == roleName).ToList();
+                    if (userInRol.Count == 0)
+                    {
+                        await userManager.AddToRoleAsync(adminUser, roleName);
+                    }
                 }
-                
-                //var isAdminInRole = await userManager.IsInRoleAsync(adminUser, SystemConstants.Seeds.SeedAdminRole.Name);
-                //if (!isAdminInRole)
-                //{
-                //}
             }
             catch(Exception ex)
             {
@@ -158,18 +166,21 @@ namespace Infrastructure.Extensions
         {
             try
             {
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
-                var roleManagerService = serviceProvider.GetRequiredService<IRoleManagerService>();
-                var role = await roleManager.FindByNameAsync(roleName);
-                var claims = SystemConstants.AuthorizationConstants.Claims.GetClaims().SelectMany(c => c.Value).ToList();
-                if (role != null)
+                using (var scop = serviceProvider.CreateScope())
                 {
-                    var roleCLaims = await roleManagerService.GetClaimsAsync(role);
-                    if (roleCLaims.Count() > 1) return;
-
-                    if (claims.Count() > 0)
+                    var roleManager = scop.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+                    var roleManagerService = serviceProvider.GetRequiredService<IRoleManagerService>();
+                    var role = await roleManager.FindByNameAsync(roleName);
+                    var claims = SystemConstants.AuthorizationConstants.Claims.GetClaims().SelectMany(c => c.Value).ToList();
+                    if (role != null)
                     {
-                        await roleManagerService.UpdateRole(role.Id, claims);
+                        var roleCLaims = await roleManagerService.GetClaimsAsync(role);
+                        if (roleCLaims.Count() > 1) return;
+
+                        if (claims.Count() > 0)
+                        {
+                            await roleManagerService.UpdateRole(role.Id, claims);
+                        }
                     }
                 }
             }
