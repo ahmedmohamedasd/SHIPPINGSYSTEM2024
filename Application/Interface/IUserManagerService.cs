@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -9,6 +10,6 @@ namespace Application.Interface
 {
     public interface IUserManagerService
     {
-        Task<IList<Claim>> GetClaimsAsync(IAppUser appUser);
+        Task<IList<Claim>> GetClaimsAsync(AppUser appUser);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Core.Entities;
 using Core.SecurityModel;
 using Infrastructure.Persistence.model;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +35,7 @@ namespace Infrastructure.Services
                 {
                     if (await _userManager.CheckPasswordAsync(userIndb, user.Password))
                     {
-                        var listOfClaims = await _userManagerService.GetClaimsAsync((IAppUser)userIndb);
+                        var listOfClaims = await _userManagerService.GetClaimsAsync((AppUser)userIndb);
                         var authClaims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Name ,user.UserName)

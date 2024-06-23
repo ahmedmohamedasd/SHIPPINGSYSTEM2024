@@ -19,6 +19,7 @@ using static Application.Constants.SystemConstants;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Core.Entities;
 
 namespace Infrastructure
 {

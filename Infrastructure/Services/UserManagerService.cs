@@ -1,4 +1,5 @@
 ﻿using Application.Interface;
+using Core.Entities;
 using Infrastructure.Persistence.model;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -22,7 +23,7 @@ namespace Infrastructure.Services
             _appDbContext = appDbContext;
         }
 
-        public async Task<IList<Claim>> GetClaimsAsync(IAppUser appUser)
+        public async Task<IList<Claim>> GetClaimsAsync(AppUser appUser)
         {
            var result =new List<Claim>();
             var userClaims = await _userManager.GetClaimsAsync((AppUser)appUser);
