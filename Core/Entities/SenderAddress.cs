@@ -1,14 +1,14 @@
-﻿using Core.Entities;
+﻿using Core.Inteface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interface
+namespace Core.Entities
 {
-    public interface IEmployeeService
+    public class SenderAddress:AddressBook
     {
-        List<Employee> GetEmployees();
+
     }
 }

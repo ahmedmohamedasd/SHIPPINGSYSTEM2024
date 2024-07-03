@@ -10,7 +10,6 @@ namespace Application.Interface
 {
     public interface IAppDbContext
     {
-        public DbSet<Employee> Employees { get; set; }
         int SaveChanges();
     }
 }

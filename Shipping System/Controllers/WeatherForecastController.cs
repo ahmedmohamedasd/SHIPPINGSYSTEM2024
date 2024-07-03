@@ -10,7 +10,6 @@ namespace Shipping_System.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly IEmployeeService _employeeService;
        
         private static readonly string[] Summaries = new[]
         {
@@ -20,10 +19,9 @@ namespace Shipping_System.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger , IEmployeeService employeeService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger )
         {
             _logger = logger;
-            _employeeService = employeeService;
         }
 
         [HttpGet("GetWeatherForecast")]
@@ -38,16 +36,6 @@ namespace Shipping_System.Controllers
             .ToArray();
         }
 
-        [HttpGet("GetEmployees")]
-        public List<EmployeeDto> GetEmployees()
-        {
-            var employeesList = _employeeService.GetEmployees();
-            TinyMapper.Bind<List<Employee>, List<EmployeeDto>>();
-            var list= TinyMapper.Map<List<EmployeeDto>>(employeesList);
-          
-            return list;
-
-            //return result.OrderBy(c => c.Id);
-        }
+      
     }
 }

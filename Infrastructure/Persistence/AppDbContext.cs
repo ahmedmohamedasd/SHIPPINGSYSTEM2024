@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Application.Constants.SystemConstants.AuthorizationConstants.Claims;
 
 namespace Infrastructure.Persistence
 {
     public class AppDbContext :IdentityDbContext<AppUser ,Role ,string> ,IAppDbContext
     {
         public DbSet<AppUser> AppUser { get; set; }
-        public DbSet<Employee>  Employees { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -49,8 +49,14 @@ namespace Infrastructure.Persistence
             //builder.Entity<RoleClaims>().HasKey(i => new { i.ClaimID, i.RoleID });
             //builder.Entity<UserRoles>().HasKey(i =>new { i.RoleID, i.UserID });
 
-
-
+            builder.Entity<BranchLevel>()
+         .HasOne(e => e.BranchSuper)
+         .WithMany(e => e.BranchLevels)
+         .HasForeignKey(e => e.SuperID)
+         .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Order>()
+            .Property(e => e.TotalFees)
+            .HasComputedColumnSql("[DeliveryFees] + [AdditionalFees]");
 
         }
 
