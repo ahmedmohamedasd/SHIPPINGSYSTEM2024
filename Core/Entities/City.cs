@@ -9,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class City : IDistinct
+    public class City : Distinct
     {
-        [Key]
-        public string Id { get ; set ; }
-        public string Name { get; set; }
+
         public Province Province { get; set; }
         [ForeignKey("Province")]
         public string ProvinceId { get; set; }

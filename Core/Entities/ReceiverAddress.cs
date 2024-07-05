@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class RecieverAddress:AddressBook
+    public class ReceiverAddress:AddressBook
     {
     }
 }

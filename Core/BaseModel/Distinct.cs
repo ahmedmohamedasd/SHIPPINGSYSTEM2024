@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Inteface
 {
-    public interface IDistinct
+    public class Distinct
     {
         [Key]
         public string Id { get; set; }

@@ -20,7 +20,7 @@ namespace Core.Entities
         public string? SenderPhone2 { get; set; }
         public City SenderCity { get; set; }
         [ForeignKey("SenderCity")]
-        public string SenderCityId { get; set; }
+        public string? SenderCityId { get; set; }
         public string SenderAreaName { get; set; }
         public string SenderStreet { get; set;}
         public string RecieverName { get; set; }
@@ -28,7 +28,7 @@ namespace Core.Entities
         public string? RecieverPhone2 { get; set; }
         public City RecieverCity { get; set; }
         [ForeignKey("RecieverCity")]
-        public string RecieverCityId { get; set; }
+        public string? RecieverCityId { get; set; }
         public string RecieverAreaName { get; set; }
         public string RecieverStreet { get; set; }
         public string ClientOrderNo { get; set; }
@@ -51,6 +51,7 @@ namespace Core.Entities
         public string? CustomerPickupInfo{ get; set; }
         public Client Client { get; set; }
         [ForeignKey("Client")]
+        public int ClientId { get; set; }
         public string ClientCode { get; set; }
         public string ClientName { get; set; }
         public string ClientBR { get; set; }

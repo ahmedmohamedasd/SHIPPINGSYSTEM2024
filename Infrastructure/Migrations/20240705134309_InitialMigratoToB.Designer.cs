@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240705134309_InitialMigratoToB")]
+    partial class InitialMigratoToB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,14 +166,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("ProvinceId")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProvinceId");
 
                     b.ToTable("City");
                 });
@@ -343,11 +338,6 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("SenderCityId")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<string>("SenderName")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -404,8 +394,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ProductTypeId");
 
                     b.HasIndex("RecieverCityId");
-
-                    b.HasIndex("SenderCityId");
 
                     b.ToTable("Order");
                 });
@@ -678,17 +666,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("BranchSuper");
                 });
 
-            modelBuilder.Entity("Core.Entities.City", b =>
-                {
-                    b.HasOne("Core.Entities.Province", "Province")
-                        .WithMany()
-                        .HasForeignKey("ProvinceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Province");
-                });
-
             modelBuilder.Entity("Core.Entities.Order", b =>
                 {
                     b.HasOne("Core.Entities.Client", "Client")
@@ -715,12 +692,6 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.City", "SenderCity")
-                        .WithMany()
-                        .HasForeignKey("SenderCityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Client");
 
                     b.Navigation("PickupBR");
@@ -728,8 +699,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("ProductType");
 
                     b.Navigation("RecieverCity");
-
-                    b.Navigation("SenderCity");
                 });
 
             modelBuilder.Entity("Core.Entities.ReceiverAddress", b =>

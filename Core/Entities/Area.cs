@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class Area : IDistinct
+    public class Area : Distinct
     {
         [Key]
         public string Id { get; set; }

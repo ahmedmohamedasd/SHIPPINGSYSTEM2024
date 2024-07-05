@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class Province : IDistinct
+    public class Province : Distinct
     {
-        public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+   
     }
 }

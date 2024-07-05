@@ -3,6 +3,7 @@ using Core.Entities;
 using Infrastructure.Persistence.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,16 @@ namespace Infrastructure.Persistence
     public class AppDbContext :IdentityDbContext<AppUser ,Role ,string> ,IAppDbContext
     {
         public DbSet<AppUser> AppUser { get; set; }
+
+        public DbSet<Province> Province { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<BranchLevel> BranchLevels { get; set; }
+        public DbSet<ProductType> ProductType { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<ReceiverAddress> ReceiverAddress { get; set; }
+        public DbSet<SenderAddress> SenderAddress { get; set; }
+        public DbSet<Client> Clients { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -54,9 +65,23 @@ namespace Infrastructure.Persistence
          .WithMany(e => e.BranchLevels)
          .HasForeignKey(e => e.SuperID)
          .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<Order>()
             .Property(e => e.TotalFees)
             .HasComputedColumnSql("[DeliveryFees] + [AdditionalFees]");
+
+            builder.Entity<Order>()
+              .HasOne(e => e.RecieverCity)
+              .WithMany()
+              .HasForeignKey(e => e.RecieverCityId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Order>()
+                .HasOne(e => e.SenderCity)
+                .WithMany()
+                .HasForeignKey(e => e.SenderCityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
         }
 
