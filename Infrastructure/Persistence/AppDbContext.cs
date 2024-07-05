@@ -52,7 +52,7 @@ namespace Infrastructure.Persistence
             builder.Entity<BranchLevel>()
          .HasOne(e => e.BranchSuper)
          .WithMany(e => e.BranchLevels)
-         .HasForeignKey(e => e.SuperID)
+         .HasForeignKey(e => e.SuperId)
          .OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Order>()
             .Property(e => e.TotalFees)

@@ -98,8 +98,6 @@ namespace Infrastructure.Extensions
                         }
                     }
                 }
-
-               
             }
             catch(Exception ex)
             {
