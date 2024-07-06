@@ -128,27 +128,73 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.BranchLevel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Code")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("AffiliatedBrId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("BranchStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ContactPhone")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("LevelType")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("SuperID")
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("OpenTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PrincipalId")
                         .IsRequired()
-                        .HasColumnType("int");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("SuperId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.HasIndex("SuperID");
+                    b.HasKey("Code");
+
+                    b.HasIndex("AffiliatedBrId");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("ModifiedId");
+
+                    b.HasIndex("PrincipalId");
+
+                    b.HasIndex("SuperId");
 
                     b.ToTable("BranchLevels");
                 });
@@ -184,17 +230,100 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("AddressId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BankAccountName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("BankAccountNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("CRNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChargeableWeight")
+                        .HasColumnType("int");
+
                     b.Property<string>("ClientCode")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ClientName")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("ContactName")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("ContractEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ContractStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ContractUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsEnable")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("MaxCODAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("ModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedId")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("NationalId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("TaxNumber")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Clients");
                 });
@@ -237,12 +366,22 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("CourierUserId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("CustomerPickupInfo")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<int?>("CustomerPickupNo")
                         .HasColumnType("int");
+
+                    b.Property<string>("DeliveryBRId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("DeliveryCenter")
                         .HasMaxLength(500)
@@ -284,6 +423,11 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ItemWeight")
                         .HasColumnType("int");
 
+                    b.Property<string>("LastUpdateBRId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<DateTime?>("LastUpdateTime")
                         .HasColumnType("datetime2");
 
@@ -297,8 +441,10 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("PickupBRId")
-                        .HasColumnType("int");
+                    b.Property<string>("PickupBRId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime?>("PickupDate")
                         .HasColumnType("datetime2");
@@ -370,6 +516,11 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Signed")
                         .HasColumnType("int");
 
+                    b.Property<string>("SigningBRId")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<DateTime?>("SigningTime")
                         .HasColumnType("datetime2");
 
@@ -399,6 +550,12 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ClientId");
 
+                    b.HasIndex("CourierUserId");
+
+                    b.HasIndex("DeliveryBRId");
+
+                    b.HasIndex("LastUpdateBRId");
+
                     b.HasIndex("PickupBRId");
 
                     b.HasIndex("ProductTypeId");
@@ -406,6 +563,8 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RecieverCityId");
 
                     b.HasIndex("SenderCityId");
+
+                    b.HasIndex("SigningBRId");
 
                     b.ToTable("Order");
                 });
@@ -669,13 +828,45 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.BranchLevel", b =>
                 {
-                    b.HasOne("Core.Entities.BranchLevel", "BranchSuper")
-                        .WithMany("BranchLevels")
-                        .HasForeignKey("SuperID")
+                    b.HasOne("Core.Entities.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AffiliatedBrId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.AppUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Core.Entities.AppUser", "Modifier")
+                        .WithMany()
+                        .HasForeignKey("ModifiedId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.AppUser", "Principal")
+                        .WithMany()
+                        .HasForeignKey("PrincipalId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.BranchLevel", "BranchSuper")
+                        .WithMany("BranchLevels")
+                        .HasForeignKey("SuperId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+
                     b.Navigation("BranchSuper");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Modifier");
+
+                    b.Navigation("Principal");
                 });
 
             modelBuilder.Entity("Core.Entities.City", b =>
@@ -689,18 +880,47 @@ namespace Infrastructure.Migrations
                     b.Navigation("Province");
                 });
 
+            modelBuilder.Entity("Core.Entities.Client", b =>
+                {
+                    b.HasOne("Core.Entities.Area", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("Core.Entities.Order", b =>
                 {
                     b.HasOne("Core.Entities.Client", "Client")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.AppUser", "CourierUser")
+                        .WithMany()
+                        .HasForeignKey("CourierUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.BranchLevel", "DeliveryBR")
+                        .WithMany()
+                        .HasForeignKey("DeliveryBRId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.BranchLevel", "LastUpdateBR")
+                        .WithMany()
+                        .HasForeignKey("LastUpdateBRId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.BranchLevel", "PickupBR")
                         .WithMany()
                         .HasForeignKey("PickupBRId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.ProductType", "ProductType")
@@ -721,7 +941,19 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Core.Entities.BranchLevel", "SigningBR")
+                        .WithMany()
+                        .HasForeignKey("SigningBRId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Client");
+
+                    b.Navigation("CourierUser");
+
+                    b.Navigation("DeliveryBR");
+
+                    b.Navigation("LastUpdateBR");
 
                     b.Navigation("PickupBR");
 
@@ -730,6 +962,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("RecieverCity");
 
                     b.Navigation("SenderCity");
+
+                    b.Navigation("SigningBR");
                 });
 
             modelBuilder.Entity("Core.Entities.ReceiverAddress", b =>
@@ -799,6 +1033,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.BranchLevel", b =>
                 {
                     b.Navigation("BranchLevels");
+                });
+
+            modelBuilder.Entity("Core.Entities.Client", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -84,17 +84,69 @@ namespace Infrastructure.Persistence
 
 
             builder.Entity<Order>()
-                .HasOne(e => e.DeliveryBranchLevel)
+                .HasOne(e => e.DeliveryBR)
                 .WithMany()
                 .HasForeignKey(e => e.DeliveryBRId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 
             builder.Entity<Order>()
-                .HasOne(e => e.SigningBranchLevel)
+                .HasOne(e => e.SigningBR)
                 .WithMany()
                 .HasForeignKey(e => e.SigningBRId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Order>()
+                .HasOne(e => e.PickupBR)
+                .WithMany()
+                .HasForeignKey(e => e.PickupBRId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Order>()
+            .HasOne(e => e.LastUpdateBR)
+            .WithMany()
+            .HasForeignKey(e => e.LastUpdateBRId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            #region Branch Level Relations
+
+            builder.Entity<BranchLevel>()
+             .HasOne(e => e.Creator)
+             .WithMany()
+             .HasForeignKey(e => e.CreatorId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<BranchLevel>()
+              .HasOne(e => e.Modifier)
+              .WithMany()
+              .HasForeignKey(e => e.ModifiedId)
+              .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<BranchLevel>()
+              .HasOne(e => e.Principal)
+              .WithMany()
+              .HasForeignKey(e => e.PrincipalId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            #endregion
+
+
+            //builder.Entity<BranchLevel>()
+            //    .HasOne(e=>e.Modifier)
+            //    .WithMany()
+            //    .HasForeignKey(e=>e.ModifiedId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //builder.Entity<BranchLevel>()
+            //    .HasOne(e => e.PrincipalId)
+            //    .WithMany()
+            //    .HasForeignKey(e => e.PrincipalId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //builder.Entity<BranchLevel>()
+            //    .HasOne(e => e.Creator)
+            //    .WithMany()
+            //    .HasForeignKey(e => e.CreatorId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
 
         }

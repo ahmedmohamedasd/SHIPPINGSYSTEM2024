@@ -21,9 +21,9 @@ namespace Core.Entities
         public int TaxNumber { get; set; }
         public int CRNumber { get; set; }
         public string NationalId { get; set; }
-        public BranchLevel BranchLevel { get; set; }
-        [ForeignKey("BranchLevel")]
-        public string CustomerBRId { get; set; }
+        //public BranchLevel BranchLevel { get; set; }
+        //[ForeignKey("BranchLevel")]
+        //public string CustomerBRId { get; set; }
         public bool IsEnable {  get; set; }
         public DateTime ContractStartTime { get; set; }
         public DateTime ContractEndTime { get; set; }
@@ -39,15 +39,15 @@ namespace Core.Entities
         public int BankAccountNumber { get; set; }
         [EmailAddress]
         public string Email { get; set; }
-        public AppUser Creator { get; set; }
-        [ForeignKey("Creator")]
-        public int CreatorId { get; set; }
-        public AppUser Modifier { get; set; }
-        [ForeignKey("Modifier")]
+        //public AppUser Creator { get; set; }
+        //[ForeignKey("Creator")]
+        //public string CreatorId { get; set; }
+        //public AppUser Modifier { get; set; }
+        //[ForeignKey("Modifier")]
         public string? ModifiedId { get; set; }
-        public AppUser SalesPerson { get; set; }
-        [ForeignKey("SalesPerson")]
-        public string? SalesPersonId { get; set; }
+        //public AppUser SalesPerson { get; set; }
+        //[ForeignKey("SalesPerson")]
+        //public string? SalesPersonId { get; set; }
         public DateTime CreatedTime { get; set; } = DateTime.Now;
         public DateTime? ModificationTime { get; set; } = DateTime.Now;
         public ChargeableWeightTypes ChargeableWeight { get; set; }
