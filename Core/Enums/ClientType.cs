@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Enums
 {
-    public enum VoidedStatus
+    public enum ClientType
     {
-        UnVoided,//Not Deleted
-        Voided ,// Deleted
-
+        Company,
+        Individual
     }
 }

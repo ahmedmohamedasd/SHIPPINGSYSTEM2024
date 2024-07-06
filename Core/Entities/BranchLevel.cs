@@ -17,12 +17,12 @@ namespace Core.Entities
         public string Name { get; set; }
         public Area Area{ get; set; }
         [ForeignKey("Area")]
-        public string AffiliatedBrId { get; set; }
+        public string AreaId { get; set; }
      
         public int ContactPhone { get; set; }
         public DateTime OpenTime { get; set; }
         public LevelType LevelType { get; set; }
-        public bool BranchStatus { get; set; }
+        public Status BranchStatus { get; set; }
       
         public string? Notes { get; set; }
         public BranchLevel BranchSuper { get; set; }

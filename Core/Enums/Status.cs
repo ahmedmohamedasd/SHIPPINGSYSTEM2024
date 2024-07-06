@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Enums
 {
-    public enum VoidedStatus
+    public enum Status
     {
-        UnVoided,//Not Deleted
-        Voided ,// Deleted
+        Active,
+        Inactive,
 
     }
 }

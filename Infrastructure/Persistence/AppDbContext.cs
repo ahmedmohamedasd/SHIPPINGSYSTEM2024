@@ -129,24 +129,36 @@ namespace Infrastructure.Persistence
 
             #endregion
 
+            #region Client Relations
 
-            //builder.Entity<BranchLevel>()
-            //    .HasOne(e=>e.Modifier)
-            //    .WithMany()
-            //    .HasForeignKey(e=>e.ModifiedId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Client>()
+             .HasOne(e => e.Creator)
+             .WithMany()
+             .HasForeignKey(e => e.CreatorId)
+             .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.Entity<BranchLevel>()
-            //    .HasOne(e => e.PrincipalId)
-            //    .WithMany()
-            //    .HasForeignKey(e => e.PrincipalId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Client>()
+              .HasOne(e => e.Modifier)
+              .WithMany()
+              .HasForeignKey(e => e.ModifiedId)
+              .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.Entity<BranchLevel>()
-            //    .HasOne(e => e.Creator)
-            //    .WithMany()
-            //    .HasForeignKey(e => e.CreatorId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Client>()
+              .HasOne(e => e.SalesPerson)
+              .WithMany()
+              .HasForeignKey(e => e.SalesPersonId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Entity<Client>()
+              .HasOne(e => e.CustomerBR)
+              .WithMany()
+              .HasForeignKey(e => e.CustomerBRId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            #endregion
+
+
 
 
         }

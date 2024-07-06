@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Enums
 {
-    public enum VoidedStatus
+    public enum SettlmentMethod
     {
-        UnVoided,//Not Deleted
-        Voided ,// Deleted
-
+        Prepaid,
+        Monthly
     }
 }

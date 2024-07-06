@@ -31,19 +31,23 @@ namespace Core.Entities
         public string? RecieverCityId { get; set; }
         public string RecieverAreaName { get; set; }
         public string RecieverStreet { get; set; }
-        public string ClientOrderNo { get; set; }
+        public string? ClientOrderNo { get; set; }
         public int ItemWeight { get; set; }
         public ProductType ProductType { get; set; }
         [ForeignKey("ProductType")]
         public int ProductTypeId { get; set; }
+        
         [Column(TypeName = "decimal(18,2)")]
         public decimal DeliveryFees { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
         public decimal COD { get; set; } = 0;
+       
         [Column(TypeName = "decimal(18,2)")]
         public decimal CODFees { get; set; } = 0;
+        
         public bool Insured { get; set; }
         [Column(TypeName = "decimal(18,2)")]
+       
         public decimal InsuranceValue { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
         public decimal InsuranceValueFees { get; set; } = 0;
@@ -51,39 +55,45 @@ namespace Core.Entities
         public string? CustomerPickupInfo{ get; set; }
         public Client Client { get; set; }
         [ForeignKey("Client")]
-        public int ClientId { get; set; }
-        public string ClientCode { get; set; }
-        public string ClientName { get; set; }
-        public string ClientBR { get; set; }
+        public int? ClientId { get; set; }
+        public string? ClientCode { get; set; }
+        public string? ClientName { get; set; }
+        public string? ClientBR { get; set; }
         public DateTime? PickupDate { get; set; }
         public string? OriginCenter { get; set; }
         public string? DeliveryCenter { get; set; }
 
         public BranchLevel PickupBR { get; set; }
-        [ForeignKey("BranchLevel")]
-        public string PickupBRId { get; set; }
+        [ForeignKey("PickupBR")]
+        public string? PickupBRId { get; set; }
         public BranchLevel DeliveryBR { get; set; }
-        [ForeignKey("DeliveryBranchLevel")]
-        public string DeliveryBRId { get; set; }
+        [ForeignKey("DeliveryBR")]
+        public string? DeliveryBRId { get; set; }
         public BranchLevel SigningBR { get; set; }
-        [ForeignKey("SigningBranchLevel")]
-        public string SigningBRId { get; set; }
+        [ForeignKey("SigningBR")]
+        public string? SigningBRId { get; set; }
         public DateTime? DeliveryTime { get; set; }
         public DateTime? SigningTime { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal AdditionalFees { get; set; }=0;
+       
         [Column(TypeName = "decimal(18,2)")]
-        public decimal TotalFees { get; set;}
+        public decimal TotalFees { get; set; } = 0;
+        
         [Column(TypeName = "decimal(18,2)")]
         public decimal FOD { get; set; } = 0;
+       
         [Column(TypeName = "decimal(18,2)")]
         public decimal FODFees { get;set; } = 0;
         public SignStatus Signed { get; set; }
+       
         [Column(TypeName = "decimal(18,2)")]
         public decimal Length { get; set; } = 0;
+      
         [Column(TypeName = "decimal(18,2)")]
         public decimal Width { get; set; } = 0;
+       
         [Column(TypeName = "decimal(18,2)")]
         public decimal Height { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
@@ -98,14 +108,18 @@ namespace Core.Entities
         public decimal InternalWeight { get; set; } = 0;
         public AppUser CourierUser { get; set; }
         [ForeignKey("CourierUser")]
-         public string CourierUserId { get; set; }
+         public string? CourierUserId { get; set; }
         //public string CourierName { get; set; }
         public VoidedStatus Voided { get; set; }
         public DateTime? LastUpdateTime { get; set; }
         public BranchLevel LastUpdateBR{ get; set; }
-        [ForeignKey("LastUpdateBranchLevel")]
-        public string LastUpdateBRId { get; set; }
+        [ForeignKey("LastUpdateBR")]
+        public string? LastUpdateBRId { get; set; }
         public string? TripleNumber { get; set; }
         public int? OFDTimes { get; set; }
+
+        public SettlmentMethod SettlmentMethod { get; set; }
+
+    
     }
 }

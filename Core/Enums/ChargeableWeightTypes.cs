@@ -8,7 +8,7 @@ namespace Core.Enums
 {
     public enum ChargeableWeightTypes
     {
-        Internal,
-        Volumemetric
+        Internal, // me4 Ab3aaaaad
+        Volumemetric // Ab3aaad
     }
 }
