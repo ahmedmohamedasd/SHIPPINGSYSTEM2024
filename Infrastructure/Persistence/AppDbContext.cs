@@ -63,7 +63,7 @@ namespace Infrastructure.Persistence
             builder.Entity<BranchLevel>()
          .HasOne(e => e.BranchSuper)
          .WithMany(e => e.BranchLevels)
-         .HasForeignKey(e => e.SuperID)
+         .HasForeignKey(e => e.SuperId)
          .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Order>()
@@ -80,6 +80,20 @@ namespace Infrastructure.Persistence
                 .HasOne(e => e.SenderCity)
                 .WithMany()
                 .HasForeignKey(e => e.SenderCityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Entity<Order>()
+                .HasOne(e => e.DeliveryBranchLevel)
+                .WithMany()
+                .HasForeignKey(e => e.DeliveryBRId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.Entity<Order>()
+                .HasOne(e => e.SigningBranchLevel)
+                .WithMany()
+                .HasForeignKey(e => e.SigningBRId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 

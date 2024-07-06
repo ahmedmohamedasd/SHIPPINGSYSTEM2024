@@ -59,11 +59,15 @@ namespace Core.Entities
         public string? OriginCenter { get; set; }
         public string? DeliveryCenter { get; set; }
 
-        public BranchLevel PickupBR { get; set; }
-        [ForeignKey("PickupBR")]
-        public int PickupBRId { get; set; }
-        //public int DeliveryBRId { get; set; }
-        //public int SigningBRId { get; set; }
+        public BranchLevel BranchLevel { get; set; }
+        [ForeignKey("BranchLevel")]
+        public string PickupBRId { get; set; }
+        public BranchLevel DeliveryBranchLevel { get; set; }
+        [ForeignKey("DeliveryBranchLevel")]
+        public string DeliveryBRId { get; set; }
+        public BranchLevel SigningBranchLevel { get; set; }
+        [ForeignKey("SigningBranchLevel")]
+        public string SigningBRId { get; set; }
         public DateTime? DeliveryTime { get; set; }
         public DateTime? SigningTime { get; set; }
 
@@ -92,11 +96,15 @@ namespace Core.Entities
         public decimal HubWeight { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
         public decimal InternalWeight { get; set; } = 0;
-        // public int CourierId { get; set; }
+        public AppUser CourierUser { get; set; }
+        [ForeignKey("CourierUser")]
+         public string CourierId { get; set; }
         //public string CourierName { get; set; }
         public VoidedStatus Voided { get; set; }
         public DateTime? LastUpdateTime { get; set; }
-        //public string LastUpdateBR { get; set; }
+        public BranchLevel LastUpdateBranchLevel { get; set; }
+        [ForeignKey("LastUpdateBranchLevel")]
+        public string LastUpdateBR { get; set; }
         public string? TripleNumber { get; set; }
         public int? OFDTimes { get; set; }
     }
