@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Entities
+namespace Core.Entities.MappingAddresses
 {
-    public class SenderAddress:AddressBook
+    public class SenderAddress : AddressBook
     {
 
     }

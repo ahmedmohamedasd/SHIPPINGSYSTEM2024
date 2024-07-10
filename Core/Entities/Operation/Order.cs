@@ -1,4 +1,5 @@
-﻿using Core.Enums;
+﻿using Core.Entities.MappingAddresses;
+using Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Entities
+namespace Core.Entities.Operation
 {
     public class Order
     {
@@ -22,7 +23,7 @@ namespace Core.Entities
         [ForeignKey("SenderCity")]
         public string? SenderCityId { get; set; }
         public string SenderAreaName { get; set; }
-        public string SenderStreet { get; set;}
+        public string SenderStreet { get; set; }
         public string RecieverName { get; set; }
         public string RecieverPhone1 { get; set; }
         public string? RecieverPhone2 { get; set; }
@@ -36,23 +37,23 @@ namespace Core.Entities
         public ProductType ProductType { get; set; }
         [ForeignKey("ProductType")]
         public int ProductTypeId { get; set; }
-        
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal DeliveryFees { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
         public decimal COD { get; set; } = 0;
-       
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal CODFees { get; set; } = 0;
-        
+
         public bool Insured { get; set; }
         [Column(TypeName = "decimal(18,2)")]
-       
+
         public decimal InsuranceValue { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
         public decimal InsuranceValueFees { get; set; } = 0;
         public int? CustomerPickupNo { get; set; }
-        public string? CustomerPickupInfo{ get; set; }
+        public string? CustomerPickupInfo { get; set; }
         public Client Client { get; set; }
         [ForeignKey("Client")]
         public int? ClientId { get; set; }
@@ -76,24 +77,24 @@ namespace Core.Entities
         public DateTime? SigningTime { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
-        public decimal AdditionalFees { get; set; }=0;
-       
+        public decimal AdditionalFees { get; set; } = 0;
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalFees { get; set; } = 0;
-        
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal FOD { get; set; } = 0;
-       
+
         [Column(TypeName = "decimal(18,2)")]
-        public decimal FODFees { get;set; } = 0;
+        public decimal FODFees { get; set; } = 0;
         public SignStatus Signed { get; set; }
-       
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal Length { get; set; } = 0;
-      
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal Width { get; set; } = 0;
-       
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal Height { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
@@ -108,11 +109,11 @@ namespace Core.Entities
         public decimal InternalWeight { get; set; } = 0;
         public AppUser CourierUser { get; set; }
         [ForeignKey("CourierUser")]
-         public string? CourierUserId { get; set; }
+        public string? CourierUserId { get; set; }
         //public string CourierName { get; set; }
         public VoidedStatus Voided { get; set; }
         public DateTime? LastUpdateTime { get; set; }
-        public BranchLevel LastUpdateBR{ get; set; }
+        public BranchLevel LastUpdateBR { get; set; }
         [ForeignKey("LastUpdateBR")]
         public string? LastUpdateBRId { get; set; }
         public string? TripleNumber { get; set; }
@@ -120,6 +121,6 @@ namespace Core.Entities
 
         public SettlmentMethod SettlmentMethod { get; set; }
 
-    
+
     }
 }

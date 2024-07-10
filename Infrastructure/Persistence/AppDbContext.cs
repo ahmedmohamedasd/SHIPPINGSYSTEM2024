@@ -1,5 +1,8 @@
 ﻿using Application.Interface;
 using Core.Entities;
+using Core.Entities.Finance;
+using Core.Entities.MappingAddresses;
+using Core.Entities.Operation;
 using Infrastructure.Persistence.model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -8,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using static Application.Constants.SystemConstants.AuthorizationConstants.Claims;
@@ -27,6 +31,10 @@ namespace Infrastructure.Persistence
         public DbSet<ReceiverAddress> ReceiverAddress { get; set; }
         public DbSet<SenderAddress> SenderAddress { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Zone> Zones { get; set; }
+        public DbSet<Quotation> Quotations { get; set; }
+        public DbSet<Quotation_Zone> GetQuotation_Zones { get; set; }
+
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -158,8 +166,49 @@ namespace Infrastructure.Persistence
 
             #endregion
 
+            #region Zone Relation
+            builder.Entity<Zone>()
+             .HasOne(e => e.Creator)
+             .WithMany()
+             .HasForeignKey(e => e.CreatorId)
+             .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Zone>()
+              .HasOne(e => e.Modifier)
+              .WithMany()
+              .HasForeignKey(e => e.ModifiedId)
+              .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Zone>()
+              .HasOne(e => e.AffailiatedBranch)
+              .WithMany()
+              .HasForeignKey(e => e.AffailiatedBranchCode)
+              .OnDelete(DeleteBehavior.Restrict);
+            #endregion
+
+            #region Quotation
+            builder.Entity<Quotation>()
+            .HasOne(e => e.Creator)
+            .WithMany()
+            .HasForeignKey(e => e.CreatorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Quotation>()
+              .HasOne(e => e.Modifier)
+              .WithMany()
+              .HasForeignKey(e => e.ModifiedId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Quotation>()
+              .HasOne(e => e.AffailiatedBranch)
+              .WithMany()
+              .HasForeignKey(e => e.AffailiatedBranchCode)
+              .OnDelete(DeleteBehavior.Restrict);
+            #endregion
+            #region Qoutation Zone
+            builder.Entity<Quotation_Zone>()
+                .HasKey(x => new { x.ZoneId, x.QuotationId });
+            #endregion
 
         }
 

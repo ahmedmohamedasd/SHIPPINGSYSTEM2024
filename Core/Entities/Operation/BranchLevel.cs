@@ -5,9 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Entities.MappingAddresses;
 using Core.Enums;
 
-namespace Core.Entities
+namespace Core.Entities.Operation
 {
 
     public class BranchLevel
@@ -15,31 +16,31 @@ namespace Core.Entities
         [Key]
         public string Code { get; set; }
         public string Name { get; set; }
-        public Area Area{ get; set; }
+        public Area Area { get; set; }
         [ForeignKey("Area")]
         public string AreaId { get; set; }
-     
+
         public int ContactPhone { get; set; }
         public DateTime OpenTime { get; set; }
         public LevelType LevelType { get; set; }
         public Status BranchStatus { get; set; }
-      
+
         public string? Notes { get; set; }
         public BranchLevel BranchSuper { get; set; }
-       
+
         [ForeignKey("BranchSuper")]
         public string? SuperId { get; set; }
         public ICollection<BranchLevel> BranchLevels { get; set; }
         public AppUser Creator { get; set; }
-        
+
         [ForeignKey("Creator")]
         public string? CreatorId { get; set; }
         public AppUser Modifier { get; set; }
-        
+
         [ForeignKey("Modifier")]
         public string? ModifiedId { get; set; }
         public AppUser Principal { get; set; }
-       
+
         [ForeignKey("User")]
         public string? PrincipalId { get; set; }
 

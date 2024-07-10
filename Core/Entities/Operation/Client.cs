@@ -8,8 +8,9 @@ using System.Reflection.PortableExecutable;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Entities.MappingAddresses;
 
-namespace Core.Entities
+namespace Core.Entities.Operation
 {
     public class Client
     {
@@ -24,7 +25,7 @@ namespace Core.Entities
         public BranchLevel CustomerBR { get; set; }
         [ForeignKey("CustomerBR")]
         public string CustomerBRId { get; set; }
-        public Status IsEnable {  get; set; }
+        public Status IsEnable { get; set; }
         public DateTime? ContractStartTime { get; set; }
         public DateTime? ContractEndTime { get; set; }
         public DateTime? CreationTime { get; set; } = DateTime.Now;
@@ -44,12 +45,12 @@ namespace Core.Entities
         [ForeignKey("Creator")]
         public string CreatorId { get; set; }
         public AppUser Modifier { get; set; }
-      
+
         [ForeignKey("Modifier")]
         public string? ModifiedId { get; set; }
-       
+
         public AppUser SalesPerson { get; set; }
-       
+
         [ForeignKey("SalesPerson")]
         public string? SalesPersonId { get; set; }
 
