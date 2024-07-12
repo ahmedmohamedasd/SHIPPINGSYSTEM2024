@@ -205,11 +205,16 @@ namespace Infrastructure.Persistence
               .HasForeignKey(e => e.AffailiatedBranchCode)
               .OnDelete(DeleteBehavior.Restrict);
             #endregion
+
             #region Qoutation Zone
             builder.Entity<Quotation_Zone>()
                 .HasKey(x => new { x.ZoneId, x.QuotationId });
             #endregion
 
+            #region Qoutation Zone Formula
+            builder.Entity<Quotation_Zone_Formula>()
+                .HasKey(x => new { x.FormulaId,x.Quotation_ZoneId });
+            #endregion
         }
 
         public override int SaveChanges()

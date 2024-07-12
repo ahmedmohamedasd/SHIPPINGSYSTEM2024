@@ -13,7 +13,7 @@ namespace Core.Entities.Finance
         [ForeignKey("Formula")]
         public int FormulaId { get; set; }
         public Quotation_Zone Quotation_Zone { get; set; }
-
+        [ForeignKey("Quotation_Zone")]
         public int Quotation_ZoneId { get; set; }
     }
 }
