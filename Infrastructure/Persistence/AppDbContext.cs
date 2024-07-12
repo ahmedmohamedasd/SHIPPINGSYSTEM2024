@@ -33,7 +33,9 @@ namespace Infrastructure.Persistence
         public DbSet<Client> Clients { get; set; }
         public DbSet<Zone> Zones { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
-        public DbSet<Quotation_Zone> GetQuotation_Zones { get; set; }
+        public DbSet<Quotation_Zone> QuotationZones { get; set; }
+        public DbSet<Formula> Formulas { get; set; }
+        public DbSet<Quotation_Zone_Formula> QuotationZoneFormulas { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -214,6 +216,18 @@ namespace Infrastructure.Persistence
             #region Qoutation Zone Formula
             builder.Entity<Quotation_Zone_Formula>()
                 .HasKey(x => new { x.FormulaId,x.Quotation_ZoneId });
+
+            builder.Entity<Quotation_Zone_Formula>()
+            .HasOne(x => x.Formula)
+            .WithMany(x => x.QuotationZones)
+            .HasForeignKey(x => x.FormulaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Quotation_Zone_Formula>()
+                .HasOne(x => x.Quotation_Zone)
+                .WithMany(x => x.QuotationZones)
+                .HasForeignKey(x => x.Quotation_ZoneId)
+                .OnDelete(DeleteBehavior.Restrict);
             #endregion
         }
 

@@ -16,7 +16,7 @@ namespace Core.Entities.Finance
         [ForeignKey("Quotation")]
         public int QuotationId { get; set; }
         public string TierName { get; set; }
-        public virtual ICollection<Quotation_Zone_Formula> QuotationZones { get; set; } = new List<Quotation_Zone_Formula>();
+        public  ICollection<Quotation_Zone_Formula> QuotationZones { get; set; } = new List<Quotation_Zone_Formula>();
 
     }
 }

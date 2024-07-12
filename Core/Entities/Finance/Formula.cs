@@ -17,7 +17,7 @@ namespace Core.Entities.Finance
         public decimal MaxWeight { get; set; } = 0;
         public WeightingRoundMode WeightingRoundMode { get; set; }
         public string FormulaEquation { get; set; }
-        public virtual ICollection<Quotation_Zone_Formula> QuotationZones { get; set; } = new List<Quotation_Zone_Formula>();
+        public ICollection<Quotation_Zone_Formula> QuotationZones { get; set; } = new List<Quotation_Zone_Formula>();
 
     }
 }
