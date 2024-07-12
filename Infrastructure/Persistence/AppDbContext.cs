@@ -71,11 +71,11 @@ namespace Infrastructure.Persistence
             //builder.Entity<UserRoles>().HasKey(i =>new { i.RoleID, i.UserID });
 
             builder.Entity<BranchLevel>()
-         .HasOne(e => e.BranchSuper)
-         .WithMany(e => e.BranchLevels)
-         .HasForeignKey(e => e.SuperId)
-         .OnDelete(DeleteBehavior.Restrict);
-
+             .HasOne(e => e.BranchSuper)
+             .WithMany(e => e.BranchLevels)
+             .HasForeignKey(e => e.SuperId)
+             .OnDelete(DeleteBehavior.Restrict);
+            #region Order
             builder.Entity<Order>()
             .Property(e => e.TotalFees)
             .HasComputedColumnSql("[DeliveryFees] + [AdditionalFees]");
@@ -117,6 +117,7 @@ namespace Infrastructure.Persistence
             .WithMany()
             .HasForeignKey(e => e.LastUpdateBRId)
             .OnDelete(DeleteBehavior.Restrict);
+            #endregion
 
             #region Branch Level Relations
 
@@ -211,6 +212,18 @@ namespace Infrastructure.Persistence
             #region Qoutation Zone
             builder.Entity<Quotation_Zone>()
                 .HasKey(x => new { x.ZoneId, x.QuotationId });
+
+            builder.Entity<Quotation_Zone>()
+               .HasOne(qz => qz.Zone)
+               .WithMany(z => z.QuotationZones)
+               .HasForeignKey(qz => qz.ZoneId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Quotation_Zone>()
+                .HasOne(qz => qz.Quotation)
+                .WithMany(q => q.QuotationZones)
+                .HasForeignKey(qz => qz.QuotationId)
+                .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             #region Qoutation Zone Formula
